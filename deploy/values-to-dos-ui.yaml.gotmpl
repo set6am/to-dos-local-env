@@ -1,0 +1,5 @@
+ingress:
+  hostname: "{{ .Values.hostname }}"
+
+extraConfigMapEnvVars:
+  VITE_API_ROOT: "{{ .Values.baseExternalUrl}}/to-dos-api"

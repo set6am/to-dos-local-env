@@ -6,3 +6,7 @@ controller:
     type: NodePort
     nodePorts:
       http: "30080"
+      https: 
+  # not needed in this setup
+  admissionWebhooks:
+    enabled: false	

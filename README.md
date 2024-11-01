@@ -11,16 +11,21 @@
 
 To be able to open locally the app you need to add its domain to your OS `hosts`.
 
-### For Windows
-
-Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode in e.g. `Notepad` and add the following line to it:
+You need to add this line to the end of your `hosts` file:
 ```
 127.0.0.1       to-dos.local.tourmalinecore.internal
 ```
 
+### For Windows
+
+Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode in e.g. `Notepad` and add the line.
+
 ### For MacOS
 
-https://www.hostinger.com/tutorials/how-to-edit-hosts-file-macos
+Execute the following command in terminal to open `hosts` file in sudo mode and add the line.
+```
+sudo nano /etc/hosts
+```
 
 ## VSCode Dev Container
 

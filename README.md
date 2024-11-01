@@ -86,13 +86,13 @@ helmfile cache cleanup && helmfile --environment local --namespace local -f depl
 
 ## Services URLs
 
-- ui: http://to-dos.local.tourmalinecore.internal/to-dos
-- api: http://to-dos.local.tourmalinecore.internal/api/to-dos-api/api
+- ui: http://to-dos.local.tourmalinecore.internal:40080/to-dos
+- api: http://to-dos.local.tourmalinecore.internal:40080/api/to-dos-api/api
 
 ## Troubleshooting
 - OpenLens not showing any pods, deployments, etc.. Make sure the "Namespace" in view "Workloads" is set to "`local`" or "`All namespaces`"
 
-- cannot open http://to-dos.local.tourmalinecore.internal/
+- cannot open http://to-dos.local.tourmalinecore.internal:40080/
     ```
     This site can’t be reached to-dos.local.tourmalinecore.internal refused to connect.
     ```

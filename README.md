@@ -1,5 +1,9 @@
 # Local Kubernetes Environment
 
+This repo enables running the whole to-dos project stack locally in k8s in Docker.
+
+More info about the project and its related repos can be found here: [to-dos-documentation](https://github.com/TourmalineCore/to-dos-documentation).
+
 ## Prerequisites
 
 1. Install Docker
@@ -111,6 +115,12 @@ helmfile cache cleanup && helmfile --environment local --namespace local -f depl
     Error: context deadline exceeded
     ```
     if you see this after you try to run `helmfile apply` command, simply retry `helmfile apply` command.
+- cannot deploy using helmfile apply
+    ```
+    Error: Failed to get release to-dos-ui in namespace local: exit status 1: WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /workspaces/to-dos-local-env/.to-dos-cluster-kubeconfig
+  WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /workspaces/to-dos-local-env/.to-dos-cluster-kubeconfig
+    ```
+    Try to delete the cluster docker container and its generated `.to-dos-cluster-kubeconfig` file and then re-open VSCode as an Administrator and redo everything from scratch.
 
 - in case of any other weird issue:
     1. Remove the `to-dos-control-plane` docker container.

@@ -1,9 +1,7 @@
 name: Deploy Prod Shared Resources
 
-on:
-  pull_request:
-    branches:
-      - test_pipeline
+on: pull_request
+
 
 
 jobs:

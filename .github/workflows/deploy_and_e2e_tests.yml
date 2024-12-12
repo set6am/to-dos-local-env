@@ -1,0 +1,46 @@
+name: Deploy Prod Shared Resources
+
+on: pull_request
+
+
+
+jobs:
+  deploy:
+    name: Deploy 
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      
+      - name: Build, run dev container, create cluster, deploy in cluster
+        uses: devcontainers/ci@v0.3
+        with:
+          # create cluster and deploy in cluster
+          runCmd: |
+            kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
+            helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+    
+  cypress-run:
+    needs: deploy
+    runs-on: ubuntu-22.04
+    container:
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      options: --user 1001
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: 'TourmalineCore/to-dos-ui'
+          ref: master
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        env:
+          CYPRESS_host: to-dos.local.tourmalinecore.internal
+          CYPRESS_port: 40080
+        with:
+          component: true
+          browser: chrome

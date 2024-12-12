@@ -2,7 +2,9 @@ name: Deploy Prod Shared Resources
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
 
 jobs:
   deploy:

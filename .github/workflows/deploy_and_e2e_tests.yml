@@ -1,6 +1,6 @@
 name: Deploy Prod Shared Resources
 
-on: workflow_dispatch
+on: pull_request
 
 jobs:
   deploy:

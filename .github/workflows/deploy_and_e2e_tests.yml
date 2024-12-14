@@ -8,6 +8,9 @@ jobs:
   deploy:
     name: Deploy 
     runs-on: ubuntu-22.04
+    container:
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      options: --user 1001
 
     steps:
       - name: Check out the repo
@@ -21,13 +24,6 @@ jobs:
             kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
             helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
     
-  cypress-run:
-    runs-on: ubuntu-22.04
-    container:
-      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
-      options: --user 1001
-
-    steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:

@@ -19,18 +19,15 @@ jobs:
           runCmd: |
             kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
             helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
-            
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           repository: 'TourmalineCore/to-dos-ui'
-          ref: master
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          wait-on: http://to-dos.local.tourmalinecore.internal:40080
-        env:
-          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:40080
+

@@ -38,7 +38,8 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        env:
-          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:40080
         with:
           browser: chrome
+          wait-on: http://to-dos.local.tourmalinecore.internal:40080
+        env:
+          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:40080

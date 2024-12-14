@@ -39,7 +39,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
-          CYPRESS_host: to-dos.local.tourmalinecore.internal
-          CYPRESS_port: 40080
+          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:40080
         with:
           browser: chrome

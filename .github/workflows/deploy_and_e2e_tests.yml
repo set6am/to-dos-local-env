@@ -17,7 +17,6 @@ jobs:
         with:
           # create cluster and deploy in cluster
           runCmd: |
-            make ci-build
             kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
             helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
 
@@ -31,4 +30,8 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
+        env:
+          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:30080/ 
+
+  
 

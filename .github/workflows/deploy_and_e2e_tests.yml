@@ -27,7 +27,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
-          CYPRESS_baseUrl: http://localhost:30080/
+          CYPRESS_baseUrl: http://localhost:80/
         with:
           browser: chrome
 

@@ -33,7 +33,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
-          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:40080/api/to-dos-api/api
+          CYPRESS_baseUrl: http://localhost:40080/
         with:
           browser: chrome
 

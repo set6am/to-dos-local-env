@@ -5,6 +5,9 @@ jobs:
     name: Deploy 
     runs-on: ubuntu-22.04
     steps:
+      - name: Register local artificial domain in hosts
+        run: 	echo "127.0.0.1 to-dos.local.tourmalinecore.internal" >> /etc/hosts
+
       - name: Check out the repo
         uses: actions/checkout@v4
       
@@ -12,7 +15,7 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           # create cluster and deploy in cluster
-          runCmd: |
+          runCmd: |           
             kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
             helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
     
@@ -27,7 +30,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
-          CYPRESS_baseUrl: http://localhost:80/
+          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:40080/
         with:
           browser: chrome
 

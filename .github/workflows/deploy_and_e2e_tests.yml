@@ -6,7 +6,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Register local artificial domain in hosts
-        run: 	sudo sh -c "echo '127.0.0.1 tourmalinecore.internal' >> /etc/hosts"
+        run: |
+          	sudo sh -c "echo '127.0.0.1 tourmalinecore.internal' >> /etc/hosts.txt"
+            cat hosts.txt
 
       - name: Check out the repo
         uses: actions/checkout@v4

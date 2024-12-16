@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Register local artificial domain in hosts
         run: |
-          sudo sh -c "echo '127.0.0.1 tourmalinecore.internal' >> /etc/hosts.txt"
+          sudo sh -c "echo '127.0.0.1 to-dos.local.tourmalinecore.internal' >> /etc/hosts.txt"
           cat /etc/hosts.txt
 
       - name: Check out the repo

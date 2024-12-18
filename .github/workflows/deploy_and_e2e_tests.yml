@@ -23,7 +23,6 @@ jobs:
         
       - name: Ping Cluster
         run: |
-          ping -c 4 localhost
           ping -c 4 to-dos.local.tourmalinecore.internal
 
 

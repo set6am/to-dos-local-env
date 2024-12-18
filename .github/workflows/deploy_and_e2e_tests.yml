@@ -1,0 +1,45 @@
+name: Deploy Prod Shared Resources
+on: pull_request
+jobs:
+  deploy:
+    name: Deploy 
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Register local artificial domain in hosts
+        run: |
+          sudo sh -c "echo '127.0.0.1 to-dos.local.tourmalinecore.internal' >> /etc/hosts"
+          cat /etc/hosts
+
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      
+      - name: Build, run dev container, create cluster, deploy in cluster
+        uses: devcontainers/ci@v0.3
+        with:
+          # create cluster and deploy in cluster
+          runCmd: |           
+            kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
+            helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+        
+      - name: Ping Cluster
+        run: |
+          ping -c 4 to-dos.local.tourmalinecore.internal
+
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: 'TourmalineCore/to-dos-ui'
+          ref: master
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        env:
+          CYPRESS_baseUrl: http://to-dos.local.tourmalinecore.internal:40080/
+          CYPRESS_API_URL: http://to-dos.local.tourmalinecore.internal:40080/api/to-dos-api/
+        with:
+          browser: chrome
+
+  
+
